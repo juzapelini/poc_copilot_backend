@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const Dentist = require('../models/dentist');
 
 const router = express.Router();
+const authenticate = require('../middleware/authenticate');
 
+router.use(authenticate);
 // Endpoint para adicionar um novo dentista
 router.post('/', async (req, res) => {
   const dentist = new Dentist(req.body);

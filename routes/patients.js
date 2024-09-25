@@ -1,8 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Patient = require('../models/patient');
+const authenticate = require('../middleware/authenticate');
 
 const router = express.Router();
+
+router.use(authenticate);
 
 // Endpoint para adicionar um novo paciente
 router.post('/', async (req, res) => {

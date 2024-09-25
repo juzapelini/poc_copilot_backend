@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const authenticate = require('../middleware/authenticate');
+
+router.use(authenticate);
 
 // Endpoint para criar um novo usuário
 router.post('/', async (req, res) => {

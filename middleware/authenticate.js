@@ -2,11 +2,13 @@ const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../config');
 
 const authenticate = (req, res, next) => {
-  const token = req.header('Authorization').replace('Bearer ', '');
-
-  if (!token) {
+  const authHeader = req.header('Authorization');
+  
+  if (!authHeader) {
     return res.status(401).send({ message: 'Acesso negado. Token não fornecido.' });
   }
+
+  const token = authHeader.replace('Bearer ', '');
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
