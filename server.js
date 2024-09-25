@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const authRouter = require('./routes/auth');
 
 const app = express();
 app.use(cors());
@@ -28,6 +29,7 @@ const patientRoutes = require('./routes/patients');
 app.use('/dentists', dentistRoutes);
 app.use('/users', userRoutes);
 app.use('/patients', patientRoutes);
+app.use('/auth', authRouter);
 
 // Novo endpoint para testar a conexão com o MongoDB
 app.get('/test-connection', async (req, res) => {

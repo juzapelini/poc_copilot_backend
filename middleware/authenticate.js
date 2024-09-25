@@ -1,10 +1,11 @@
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = 'your_jwt_secret_key'; // Substitua por uma chave secreta segura
+const { JWT_SECRET } = require('../config');
 
 const authenticate = (req, res, next) => {
   const token = req.header('Authorization').replace('Bearer ', '');
+
   if (!token) {
-    return res.status(401).send({ message: 'Autenticação necessária' });
+    return res.status(401).send({ message: 'Acesso negado. Token não fornecido.' });
   }
 
   try {
@@ -12,7 +13,7 @@ const authenticate = (req, res, next) => {
     req.userId = decoded.userId;
     next();
   } catch (error) {
-    res.status(401).send({ message: 'Token inválido' });
+    res.status(400).send({ message: 'Token inválido.' });
   }
 };
 
